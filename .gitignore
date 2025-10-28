@@ -2,3 +2,4 @@
 providers/
 .terraform.lock.hcl
 terraform.*
+.DS_Store
