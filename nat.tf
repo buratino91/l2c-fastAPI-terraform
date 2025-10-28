@@ -1,0 +1,15 @@
+resource "aws_nat_gateway" "l2c-nat-web-a" {
+  subnet_id = aws_subnet.l2c-web-a.id
+  connectivity_type = "public"
+  allocation_id = aws_eip.nat-web-a.id
+
+  depends_on = [ aws_internet_gateway.l2c-IGW ]
+}
+
+resource "aws_nat_gateway" "l2c-nat-web-b" {
+  subnet_id = aws_subnet.l2c-web-b.id
+  connectivity_type = "public"
+  allocation_id = aws_eip.nat-web-b.id
+
+  depends_on = [ aws_internet_gateway.l2c-IGW ]
+}
