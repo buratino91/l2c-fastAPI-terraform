@@ -2,11 +2,11 @@
 resource "aws_route_table" "web-rt" {
   vpc_id = aws_vpc.l2c-vpc.id
 
-  depends_on = [ aws_vpc.l2c-vpc ]
+  depends_on = [aws_vpc.l2c-vpc]
 
   route {
     ipv6_cidr_block = "::/0"
-    gateway_id = aws_internet_gateway.l2c-IGW.id
+    gateway_id      = aws_internet_gateway.l2c-IGW.id
   }
 
   route {
@@ -20,27 +20,27 @@ resource "aws_route_table" "web-rt" {
 }
 
 resource "aws_route_table_association" "web-a-sn-associations" {
-  subnet_id = aws_subnet.l2c-web-a.id
+  subnet_id      = aws_subnet.l2c-web-a.id
   route_table_id = aws_route_table.web-rt.id
 }
 
 resource "aws_route_table_association" "web-b-sn-associations" {
-  subnet_id = aws_subnet.l2c-web-b.id
+  subnet_id      = aws_subnet.l2c-web-b.id
   route_table_id = aws_route_table.web-rt.id
 }
 
 resource "aws_route_table_association" "web-c-sn-associations" {
-  subnet_id = aws_subnet.l2c-web-c.id
+  subnet_id      = aws_subnet.l2c-web-c.id
   route_table_id = aws_route_table.web-rt.id
 }
 
 resource "aws_route_table" "rt-sn-db-a" {
   vpc_id = aws_vpc.l2c-vpc.id
 
-  depends_on = [ aws_vpc.l2c-vpc ]
+  depends_on = [aws_vpc.l2c-vpc]
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.l2c-nat-web-a.id
   }
 
@@ -52,10 +52,10 @@ resource "aws_route_table" "rt-sn-db-a" {
 resource "aws_route_table" "rt-sn-db-b" {
   vpc_id = aws_vpc.l2c-vpc.id
 
-  depends_on = [ aws_vpc.l2c-vpc ]
+  depends_on = [aws_vpc.l2c-vpc]
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.l2c-nat-web-b.id
   }
 
@@ -65,11 +65,11 @@ resource "aws_route_table" "rt-sn-db-b" {
 }
 
 resource "aws_route_table_association" "l2c-db-a-rt-association" {
-  subnet_id = aws_subnet.l2c-db-a.id
+  subnet_id      = aws_subnet.l2c-db-a.id
   route_table_id = aws_route_table.rt-sn-db-a.id
 }
 
 resource "aws_route_table_association" "l2c-db-b-rt-association" {
-  subnet_id = aws_subnet.l2c-db-b.id
+  subnet_id      = aws_subnet.l2c-db-b.id
   route_table_id = aws_route_table.rt-sn-db-b.id
 }

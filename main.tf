@@ -19,7 +19,7 @@ resource "aws_s3_bucket" "terraform_state" {
   bucket = "l2c-state"
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
   }
 }
 
@@ -44,34 +44,25 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
 
 # Block public access
 resource "aws_s3_bucket_public_access_block" "block-public-access" {
-  bucket = aws_s3_bucket.terraform_state.id
-  block_public_acls = true
-  block_public_policy = true
-  ignore_public_acls = true
+  bucket                  = aws_s3_bucket.terraform_state.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
   restrict_public_buckets = true
 }
 
-# Create dynamodb table for locking
-resource "aws_dynamodb_table" "terraform_locks" {
-  name = "terraform-l2c-locks"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key = "LockID"
 
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
-}
 
 # Configure terraform to store state in S3 bucket
-# terraform {
-#     backend "s3" {
-#         bucket = "l2c-state"
-#         key = "global/s3/terraform.tfstate"
-#         region = "us-east-1"
+terraform {
+  backend "s3" {
+    bucket       = "l2c-state"
+    key          = "global/s3/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
 
-#         dynamodb_table = "terraform-l2c-locks"
-#         encrypt = true
 
-#   }
-# }
+    encrypt = true
+
+  }
+}
