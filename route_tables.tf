@@ -41,7 +41,7 @@ resource "aws_route_table" "rt-sn-db-a" {
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.l2c-nat-web-a.id
+    nat_gateway_id = aws_nat_gateway.l2c-nat-db-a.id
   }
 
   tags = {
@@ -56,7 +56,7 @@ resource "aws_route_table" "rt-sn-db-b" {
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.l2c-nat-web-b.id
+    nat_gateway_id = aws_nat_gateway.l2c-nat-db-b.id
   }
 
   tags = {

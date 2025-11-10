@@ -9,6 +9,8 @@ resource "aws_vpc_endpoint" "ec2messages" {
 
   service_name = "com.amazonaws.us-east-1.ec2messages"
 
+  private_dns_enabled = true
+
 }
 
 
@@ -24,6 +26,8 @@ resource "aws_vpc_endpoint" "ssm" {
 
   service_name = "com.amazonaws.us-east-1.ssm"
 
+  private_dns_enabled = true
+
 }
 
 
@@ -38,5 +42,7 @@ resource "aws_vpc_endpoint" "ssmmessages" {
   subnet_ids = [aws_subnet.l2c-db-a.id, aws_subnet.l2c-db-b.id]
 
   service_name = "com.amazonaws.us-east-1.ssmmessages"
+
+  private_dns_enabled = true
 
 }
