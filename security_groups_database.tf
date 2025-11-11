@@ -17,3 +17,9 @@ resource "aws_vpc_security_group_egress_rule" "allow-to-endpoint" {
   to_port = 443
   referenced_security_group_id = aws_security_group.VPC-endpoints.id
 }
+
+resource "aws_vpc_security_group_egress_rule" "allow-outbound" {
+  security_group_id            = aws_security_group.database_SG.id # allow outbound to public
+  ip_protocol                  = -1
+  cidr_ipv4         = "0.0.0.0/0"
+}

@@ -15,7 +15,7 @@ resource "aws_iam_role" "SSMRole" {
 }
 
 resource "aws_iam_policy" "SSMManagedInstanceCore" {
-  name = "SSMManagedInstanceCore"
+  name = "SSMCore"
   description = "policy for managing ec2 in SSM"
 
   policy = <<EOT

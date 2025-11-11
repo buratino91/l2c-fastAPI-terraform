@@ -19,5 +19,4 @@ resource "aws_internet_gateway_attachment" "l2c-IGW-attachment" {
   internet_gateway_id = aws_internet_gateway.l2c-IGW.id
   vpc_id              = aws_vpc.l2c-vpc.id
 
-  depends_on = [aws_vpc.l2c-vpc]
 }

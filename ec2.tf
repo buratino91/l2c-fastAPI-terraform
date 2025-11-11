@@ -31,6 +31,6 @@ resource "aws_instance" "postgresql" {
 
 resource "aws_key_pair" "ssh_key" {
   key_name   = "l2c-ssh-key"
-  public_key = file("/Users/glenchua/Downloads/l2c.pub")
+  public_key = file(pathexpand("~/.ssh/test.pub"))
 
 }

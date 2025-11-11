@@ -2,7 +2,6 @@
 resource "aws_route_table" "web-rt" {
   vpc_id = aws_vpc.l2c-vpc.id
 
-  depends_on = [aws_vpc.l2c-vpc]
 
   route {
     ipv6_cidr_block = "::/0"
@@ -37,7 +36,6 @@ resource "aws_route_table_association" "web-c-sn-associations" {
 resource "aws_route_table" "rt-sn-db-a" {
   vpc_id = aws_vpc.l2c-vpc.id
 
-  depends_on = [aws_vpc.l2c-vpc]
 
   route {
     cidr_block     = "0.0.0.0/0"
@@ -52,7 +50,6 @@ resource "aws_route_table" "rt-sn-db-a" {
 resource "aws_route_table" "rt-sn-db-b" {
   vpc_id = aws_vpc.l2c-vpc.id
 
-  depends_on = [aws_vpc.l2c-vpc]
 
   route {
     cidr_block     = "0.0.0.0/0"
