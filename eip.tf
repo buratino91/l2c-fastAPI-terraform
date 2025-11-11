@@ -1,14 +1,14 @@
 # EIPs for nat gateways
 
-resource "aws_eip" "nat-db-a" {
+resource "aws_eip" "nat-a-eip" {
   tags = {
-    Name = "natGW-db-a-eip"
+    Name = "natGW-a-eip"
   }
 }
 
-resource "aws_eip" "nat-db-b" {
+resource "aws_eip" "nat-b-eip" {
   tags = {
-    Name = "natGW-db-b-eip"
+    Name = "natGW-b-eip"
   }
 }
 

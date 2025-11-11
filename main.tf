@@ -54,15 +54,15 @@ resource "aws_s3_bucket_public_access_block" "block-public-access" {
 
 
 # Configure terraform to store state in S3 bucket
-# terraform {
-#   backend "s3" {
-#     bucket       = "l2c-state"
-#     key          = "global/s3/terraform.tfstate"
-#     region       = "us-east-1"
-#     use_lockfile = true
+terraform {
+  backend "s3" {
+    bucket       = "l2c-state"
+    key          = "global/s3/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
 
 
-#     encrypt = true
+    encrypt = true
 
-#   }
-# }
+  }
+} 

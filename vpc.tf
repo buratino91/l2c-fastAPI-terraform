@@ -9,6 +9,7 @@ resource "aws_vpc" "l2c-vpc" {
 }
 
 resource "aws_internet_gateway" "l2c-IGW" {
+  vpc_id              = aws_vpc.l2c-vpc.id
 
   tags = {
     Name = "l2c-vpc1-IGW"

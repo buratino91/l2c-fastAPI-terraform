@@ -7,6 +7,8 @@ resource "aws_instance" "fastAPI" {
   key_name                    = aws_key_pair.ssh_key.key_name
 
   security_groups = [aws_security_group.public_access.id]
+  
+  depends_on = [aws_internet_gateway.l2c-IGW]
 
   tags = {
     Name = "fastAPI_public_server"
