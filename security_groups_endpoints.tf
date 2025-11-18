@@ -10,7 +10,7 @@ resource "aws_security_group" "VPC-endpoints" {
 resource "aws_vpc_security_group_ingress_rule" "allow-https-endpoints" { # allow HTTPS inbound from database SG
   security_group_id            = aws_security_group.VPC-endpoints.id
   ip_protocol                  = "TCP"
-  referenced_security_group_id = aws_security_group.database_SG.id 
+  referenced_security_group_id = aws_security_group.database_SG.id
   from_port                    = 443
   to_port                      = 443
 }
