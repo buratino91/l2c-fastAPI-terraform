@@ -9,22 +9,22 @@ resource "aws_instance" "fastAPI" {
   user_data = <<EOF
     #!/bin/bash
     sleep 60
-    
+
     cd journal-starter/
     source .env
-    sudo sed -i "s|DATABASE_URL=.*$|DATABASE_URL=postgresql://postgres:$$POSTGRES_PASSWORD@$(aws ec2 describe-instances \
+    sed -i "s|DATABASE_URL=.*$|DATABASE_URL=postgresql://postgres:$$POSTGRES_PASSWORD@$(aws ec2 describe-instances \
     --filters \
     "Name=tag:Name,Values=Db server" \
     --query 'Reservations[*].Instances[*].PrivateIpAddress' \
     --output text | tr -d ' '):5432/career_journal|" .env
 
-    sudo sed -i "s/server_name.*$$/server_name $(aws ec2 describe-instances \
+    sed -i "s/server_name.*$$/server_name $(aws ec2 describe-instances \
     --filters \
     "Name=tag:Name,Values=Db server" \
     --query 'Reservations[*].Instances[*].PrivateIpAddress' \
     --output text | tr -d ' ')/" /etc/nginx/conf.d/fastapi_nginx.conf
 
-    sudo service nginx restart
+    service nginx restart
   EOF
 
 
