@@ -15,4 +15,3 @@ resource "aws_internet_gateway" "l2c-IGW" {
     Name = "l2c-vpc1-IGW"
   }
 }
-
