@@ -3,4 +3,4 @@
 This module provisions the neccessary virtual private cloud network and routing policies to host the 2-tier fastAPI application.
 
 ## Diagram of network:
-![[2-tier Architecture.png]]
+![alt text](2-tier Architecture.png)
