@@ -17,3 +17,7 @@ variable "az_c" {
   type = string
   default = "us-east-1c"
 }
+
+variable "vpc_endpoint_SG_id" {
+  type = string
+}

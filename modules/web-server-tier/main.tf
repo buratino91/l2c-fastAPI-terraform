@@ -20,7 +20,7 @@ resource "aws_instance" "fastAPI" {
   ami                         = var.fastAPI_AMI_ID
   instance_type               = var.instance_type
   associate_public_ip_address = true
-  subnet_id                   = aws_subnet.l2c-web-a.id
+  subnet_id                   = var.subnet_id
   key_name                    = aws_key_pair.ssh_key.key_name
 
   user_data = <<-EOF
@@ -47,11 +47,9 @@ resource "aws_instance" "fastAPI" {
   EOF
 
 
-  security_groups = [aws_security_group.public_access.id]
+  security_groups = [var.PublicAccess_SG_ID]
 
-  depends_on = [aws_internet_gateway.l2c-IGW]
-
-  iam_instance_profile = aws_iam_instance_profile.ec2-describe-InstanceProfile.name
+  iam_instance_profile = var.iam_instance_profile
 
   tags = {
     Name = "fastAPI_public_server"

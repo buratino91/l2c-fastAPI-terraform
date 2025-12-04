@@ -3,7 +3,7 @@ resource "aws_vpc_endpoint" "ec2messages" {
   vpc_id = aws_vpc.l2c-vpc.id
 
   vpc_endpoint_type  = "Interface"
-  security_group_ids = [aws_security_group.VPC-endpoints.id]
+  security_group_ids = [var.vpc_endpoint_SG_id]
 
   subnet_ids = [aws_subnet.l2c-db-a.id, aws_subnet.l2c-db-b.id]
 
@@ -20,7 +20,7 @@ resource "aws_vpc_endpoint" "ssm" {
   vpc_id = aws_vpc.l2c-vpc.id
 
   vpc_endpoint_type  = "Interface"
-  security_group_ids = [aws_security_group.VPC-endpoints.id]
+  security_group_ids = [var.vpc_endpoint_SG_id]
 
   subnet_ids = [aws_subnet.l2c-db-a.id, aws_subnet.l2c-db-b.id]
 
@@ -37,7 +37,7 @@ resource "aws_vpc_endpoint" "ssmmessages" {
   vpc_id = aws_vpc.l2c-vpc.id
 
   vpc_endpoint_type  = "Interface"
-  security_group_ids = [aws_security_group.VPC-endpoints.id]
+  security_group_ids = [var.vpc_endpoint_SG_id]
 
   subnet_ids = [aws_subnet.l2c-db-a.id, aws_subnet.l2c-db-b.id]
 

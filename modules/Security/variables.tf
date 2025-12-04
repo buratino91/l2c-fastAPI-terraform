@@ -22,3 +22,7 @@ variable "my_IP" {
   type = string
   default = "210.10.77.5/32"
 }
+
+variable "vpc-id" {
+  type = string
+}

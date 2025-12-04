@@ -2,7 +2,7 @@
 resource "aws_security_group" "VPC-endpoints" {
   name        = "VPC endpoint SG"
   description = "SG for VPC endpoints"
-  vpc_id      = aws_vpc.l2c-vpc.id
+  vpc_id      = var.vpc-id
 }
 
 

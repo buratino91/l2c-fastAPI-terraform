@@ -21,12 +21,12 @@ resource "aws_instance" "postgresql" {
   instance_type               = var.instance_type
   associate_public_ip_address = false
 
-  subnet_id            = aws_subnet.l2c-db-a.id
-  iam_instance_profile = aws_iam_instance_profile.SSM_ec2_InstanceProfile.name
+  subnet_id            = var.subnet_id
+  iam_instance_profile = var.iam_profile
 
 
 
-  security_groups = [aws_security_group.database_SG.id]
+  security_groups = [var.security_groups]
   tags = {
     Name = "Db server"
   }

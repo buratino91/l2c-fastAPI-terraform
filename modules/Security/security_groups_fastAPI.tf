@@ -1,7 +1,7 @@
 resource "aws_security_group" "public_access" {
   name        = "public access SG"
   description = "Allow public connection for ingress and egress"
-  vpc_id      = aws_vpc.l2c-vpc.id
+  vpc_id      = var.vpc-id
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow-ssh-fastAPI" {
