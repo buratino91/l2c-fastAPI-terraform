@@ -16,7 +16,7 @@ provider "aws" {
 }
 
 module "l2c-vpc" {
-  source = "./modules/VPC"
+  source             = "./modules/VPC"
   vpc_endpoint_SG_id = module.security_policies.vpcEndpoint_SG_id
 }
 
@@ -41,20 +41,22 @@ module "security_policies" {
 }
 
 module "ecs_containers" {
-  source = "./modules/Containers"
+  source          = "./modules/Containers"
   container_image = "docker.io/glen912/l2c-journal_app:latest"
-  subnets = [ module.l2c-vpc.web_a_subnetID, module.l2c-vpc.web_b_subnetID ]
-  security_groups = [ module.security_policies.publicAccess_SG_id ]
+  subnets         = [module.l2c-vpc.web_a_subnetID, module.l2c-vpc.web_b_subnetID]
+  security_groups = [module.security_policies.publicAccess_SG_id]
 }
 
 module "rds" {
-  source  = "terraform-aws-modules/rds/aws"
-  version = "7.0.0"
-  identifier = "l2c-journal-db"
-  vpc_security_group_ids = [module.security_policies.db_securitygroups ]
-  db_subnet_group_name = module.l2c-vpc.db_a_subnetID
-  # engine = "postgres"
-  family = "postgres17"
-  create_db_option_group = false
-  instance_class = "t3.micro"
+  source                 = "terraform-aws-modules/rds/aws"
+  version                = "7.0.0"
+  identifier             = "l2c-journal-db"
+  vpc_security_group_ids = [module.security_policies.db_securitygroups]
+  create_db_subnet_group = true
+  subnet_ids = module.l2c-vpc.db_subnet_ids
+  engine                 = "postgres"
+  family                 = "postgres17"
+  instance_class         = "db.t3.micro"
+  allocated_storage      = 20
+  username               = "postgres"
 }

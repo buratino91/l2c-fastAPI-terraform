@@ -3,6 +3,15 @@ output "db_a_subnetID" {
   value = aws_subnet.l2c-db-a.id
 }
 
+output "db_subnet_ids" {
+  description = "List of database subnet IDs"
+  value = [
+    aws_subnet.l2c-db-a.id,
+    aws_subnet.l2c-db-b.id,
+    aws_subnet.l2c-db-c.id
+  ]
+}
+
 output "db_b_subnetID" {
   description = "Subnet ID of database subnet in AZ-B"
   value = aws_subnet.l2c-db-b.id

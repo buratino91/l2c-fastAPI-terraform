@@ -39,7 +39,10 @@ resource "aws_ecs_service" "journal-app" {
 
 resource "aws_ecs_task_definition" "fastAPI-app" {
   family = "fastAPI-app"
+  network_mode = "awsvpc"
   requires_compatibilities = [ "FARGATE" ]
+  cpu = 512
+  memory = 1024
   container_definitions = jsonencode([
     {
         name = "l2c-journalApp"
