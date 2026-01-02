@@ -31,8 +31,8 @@ resource "aws_ecs_service" "journal-app" {
     launch_type = "FARGATE"
 
     network_configuration {
-      subnets = [ aws_subnet.l2c-web-a.id, aws_subnet.l2c-web-b.id, aws_subnet.l2c-web-c.id ]
-      security_groups = [ aws_security_group.public_access.id ]
+      subnets = var.subnets
+      security_groups = var.security_groups
       assign_public_ip = true
     }
 }
@@ -43,7 +43,7 @@ resource "aws_ecs_task_definition" "fastAPI-app" {
   container_definitions = jsonencode([
     {
         name = "l2c-journalApp"
-        image = "docker.io/glen912/l2c-journal_app:latest"
+        image = "${var.container_image}"
         cpu = 512
         memory = 1024
         essential = true
