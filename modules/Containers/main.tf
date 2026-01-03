@@ -47,6 +47,24 @@ resource "aws_ecs_task_definition" "fastAPI-app" {
     {
         name = "l2c-journalApp"
         image = "${var.container_image}"
+        environment = [
+            {
+                name = "POSTGRES_USER"
+                value = var.db_username
+            },
+            {
+                name = "POSTGRES_PASSWORD"
+                value = var.db_password
+            },
+            {
+                name = "POSTGRES_DB"
+                value = var.db_name
+            },
+            {
+                name = "DATABASE_URL"
+                value = var.db_url
+            }
+        ]
         cpu = 512
         memory = 1024
         essential = true
