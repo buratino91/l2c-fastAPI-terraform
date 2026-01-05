@@ -33,3 +33,15 @@ variable "db_name" {
 variable "db_url" {
   type = string
 }
+
+variable "execution_role" {
+  type = string
+}
+
+variable "task_role" {
+  type = string
+}
+
+variable "log_group" {
+  type = string
+}

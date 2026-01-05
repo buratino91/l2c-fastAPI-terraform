@@ -14,11 +14,6 @@ provider "aws" {
   region = var.aws_region
 }
 
-# resource "aws_ecr_repository" "foo" {
-#   name = "l2c-journalapp-repo"
-#   image_tag_mutability = "MUTABLE"
-# }
-
 resource "aws_ecs_cluster" "cluster" {
   name = "l2c-ecs-cluster"
 }
@@ -29,6 +24,7 @@ resource "aws_ecs_service" "journal-app" {
     task_definition = aws_ecs_task_definition.fastAPI-app.arn
     desired_count = 1
     launch_type = "FARGATE"
+    enable_execute_command = true
 
     network_configuration {
       subnets = var.subnets
@@ -43,19 +39,23 @@ resource "aws_ecs_task_definition" "fastAPI-app" {
   requires_compatibilities = [ "FARGATE" ]
   cpu = 512
   memory = 1024
+  execution_role_arn = var.execution_role
+  task_role_arn = var.task_role
   container_definitions = jsonencode([
     {
         name = "l2c-journalApp"
         image = "${var.container_image}"
+        secret = [
+          {
+            name = "POSTGRES_USER"
+            valueFrom = var.db_username
+          },
+          {
+            name = "POSTGRES_PASSWORD"
+            valueFrom = var.db_password
+          }
+        ]
         environment = [
-            {
-                name = "POSTGRES_USER"
-                value = var.db_username
-            },
-            {
-                name = "POSTGRES_PASSWORD"
-                value = var.db_password
-            },
             {
                 name = "POSTGRES_DB"
                 value = var.db_name
@@ -75,10 +75,18 @@ resource "aws_ecs_task_definition" "fastAPI-app" {
         }
 
         ]
+        logConfiguration = {
+          logDriver = "awslogs"
+          options = {
+            "awslogs-group" = var.log_group
+            "awslogs-region" = var.aws_region
+            "awslogs-stream-prefix" = "ecs"
+          }
+        }
     }
   ])
 
   runtime_platform {
-    cpu_architecture = "X86_64"
+    cpu_architecture = "ARM64"
   }
 }

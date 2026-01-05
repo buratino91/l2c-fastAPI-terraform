@@ -22,3 +22,13 @@ output "iam_instance_profile_describeEC2" {
   description = "Name of IAM instance profile to allow retrieval of EC2 private address"
   value = aws_iam_instance_profile.ec2-describe-InstanceProfile.name
 }
+
+output "execution_role_arn" {
+  description = "ARN of ECS task execution role"
+  value = aws_iam_role.ecs_task_execution_role.arn
+}
+
+output "task_role_arn" {
+  description = "ARN of ECS task role for ecs exec"
+  value = aws_iam_role.ecs_task_role.arn
+}
