@@ -16,8 +16,8 @@ resource "aws_vpc_security_group_ingress_rule" "allow-ssh-fastAPI" {
 resource "aws_vpc_security_group_ingress_rule" "allow-http-for-fastAPI" {
   security_group_id = aws_security_group.public_access.id
   ip_protocol       = local.tcp_protocol
-  from_port         = var.HTTP_port_number
-  to_port           = var.HTTP_port_number
+  from_port         = var.hostPort_ecs
+  to_port           = var.hostPort_ecs
   cidr_ipv4         = local.cidr_all_ipv4
 
 }
