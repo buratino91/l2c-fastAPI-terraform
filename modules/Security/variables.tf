@@ -26,3 +26,8 @@ variable "my_IP" {
 variable "vpc-id" {
   type = string
 }
+
+variable "hostPort_ecs" {
+  type = number
+  default = 8000
+}
