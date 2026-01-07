@@ -72,10 +72,6 @@ module "cloudwatch" {
   source = "./modules/Cloudwatch"
 }
 
-# output "db_instance_address" {
-#   value = module.rds.db_instance_address
-# }
-
 data "aws_ssm_parameter" "user" {
   name = "/l2c/database/user"
 }
