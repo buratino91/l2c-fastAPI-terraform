@@ -30,3 +30,8 @@ jobs:
 
       - name: Terraform apply
         run: terraform apply --auto-approve
+
+      - name: Cleanup
+        if: always()
+        run: |
+          terraform destroy --auto-approve
