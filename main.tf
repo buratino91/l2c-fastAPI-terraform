@@ -42,7 +42,7 @@ module "security_policies" {
 
 module "ecs_containers" {
   source          = "./modules/Containers"
-  container_image = "docker.io/glen912/l2c-journal_app:v3"
+  container_image = "docker.io/glen912/l2c-journal_app:latest"
   subnets         = [module.l2c-vpc.web_a_subnetID, module.l2c-vpc.web_b_subnetID]
   security_groups = [module.security_policies.publicAccess_SG_id]
   db_name         = var.db_name
